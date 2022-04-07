@@ -3,10 +3,12 @@ class AlertsController < ApiController
 
   # GET /alerts
   def index
-    @alerts = Alert.all.order("created_at DESC")
-   
+
+    alerts = Alert.all.order("created_at DESC")
+    @alerts = alerts[0...9]
+    
     alert_levels = []
-    @alerts.each { | a | alert_levels << a.level }
+    alerts.each { | a | alert_levels << a.level }
     @avg = alert_levels.inject(0, :+) / @alerts.count
     @avg_json = { "average": @avg, "count": @alerts.count }
     
