@@ -2,9 +2,19 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
+
+# authentication & admin
 gem 'devise'
 gem 'activeadmin'
 gem 'sass-rails'
+# disable CORS 
+gem 'rack-cors'
+# testing
+gem 'rspec-rails'
+# code formatter based on RAILS best pratices
+gem 'robocop', '~> 0.1.1'
+# loads env variables from .env
+gem 'dotenv', '~> 2.7', '>= 2.7.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
 # Use Puma as the app server

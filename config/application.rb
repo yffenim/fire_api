@@ -43,6 +43,9 @@ module FireApi
     config.middleware.use ActionDispatch::Session::CookieStore
 
     config.api_only = true
+    # tell rails about scaffolding bc we went api-only
     config.app_generators.scaffold_controller = :scaffold_controller
+    # add safe origin domain to avoid CORS issues
+    config.hosts << "localhost"
   end
 end

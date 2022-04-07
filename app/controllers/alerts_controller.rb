@@ -5,12 +5,12 @@ class AlertsController < ApiController
   def index
     @alerts = Alert.all.order("created_at DESC")
    
-    # I think this should not go here?
     alert_levels = []
     @alerts.each { | a | alert_levels << a.level }
     @avg = alert_levels.inject(0, :+) / @alerts.count
-    @avg_json = { "alerts average": @avg }
-
+    @avg_json = { "average": @avg, "count": @alerts.count }
+    
+    # render json: @alerts
     render json: [@alerts, @avg_json]
   end
 
