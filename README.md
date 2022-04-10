@@ -1,6 +1,8 @@
 # Fire API, Version 1
 
-### A Front-End Agnostic API for tracking alertness. 
+### A Front-End Agnostic API for tracking wakefullness throughout the day. 
+
+That which is not measured, cannot be managed. Get to know your circadian rhythmn.
 
 Built on Rails 6.1.0.4 so that a database migration to MongoDB would be water off a duck's back. 
 
@@ -24,6 +26,14 @@ Browser: TBD
 
 https://limitless-citadel-71686.herokuapp.com/ 
 
+If you need to reset/reseed database:
+
+`heroku restart`
+
+`heroku pg:reset DATABASE_URL`
+
+`heroku rake db:migrate db:seed`
+
 # Docs -- For Later Versions - TBD
 
 ### Active Admin Users - CRUD, Authentication, Data Visualization
@@ -32,4 +42,4 @@ Default user login: "admin@example.com" "password"
 
 ### Users -- CRUD, Authentication, Data Visualization
 
-### Alerts -- API-interaction  
+### Alerts -- API-interaction
