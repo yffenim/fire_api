@@ -8,7 +8,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'sass-rails'
 # disable CORS 
-gem 'rack-cors'
+gem 'rack-cors', :require => 'rack/cors'
 # testing
 gem 'rspec-rails'
 # code formatter based on RAILS best pratices
