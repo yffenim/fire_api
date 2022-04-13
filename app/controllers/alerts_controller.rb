@@ -5,15 +5,12 @@ class AlertsController < ApiController
   def index
 
     alerts = Alert.all.order("created_at DESC")
-    @alerts = alerts[0...9]
     
-    alert_levels = []
-    alerts.each { | a | alert_levels << a.level }
-    @avg = alert_levels.inject(0, :+) / @alerts.count
-    @avg_json = { "average": @avg, "count": @alerts.count }
+    # last 5 alert because that's all a user needs to see on a dashboard
+    @alerts = alerts[0..4]
+    set_avg_and_count(Alert.all) if @alerts.count > 0
     
-    # render json: @alerts
-    render json: [@alerts, @avg_json]
+    render json: [@alerts, @avg_and_count]
   end
 
   # GET /alerts/1
@@ -56,4 +53,12 @@ class AlertsController < ApiController
     def alert_params
       params.require(:alert).permit(:user_id, :level)
     end
+  
+    def set_avg_and_count(alerts)
+      alert_levels = []
+      alerts.each { | a | alert_levels << a.level }
+      avg = alert_levels.inject(0, :+) / alerts.count
+      @avg_and_count = { "average": avg, "count": alerts.count }
+    end 
+
 end

@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    render json: [@user, @user.alerts]
   end
 
   # POST /users

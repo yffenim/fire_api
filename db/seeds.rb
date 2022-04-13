@@ -21,8 +21,8 @@ ada = User.new(
 )
 ada.save!
 
-5.times do
-  alert = Alert.new(level: rand(0..10), user_id: ada.id)
+10.times do
+  alert = Alert.new(level: rand(1..10), user_id: ada.id)
   alert.save!
 end
 
