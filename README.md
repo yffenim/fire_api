@@ -26,7 +26,11 @@ Browser: TBD
 
 https://limitless-citadel-71686.herokuapp.com/ 
 
-If you need to reset/reseed database:
+If you need to reseed the database:
+
+`heroku rake db:seed`
+
+If you need to make model changes to the database:
 
 `heroku restart`
 
@@ -43,3 +47,5 @@ Default user login: "admin@example.com" "password"
 ### Users -- CRUD, Authentication, Data Visualization
 
 ### Alerts -- API-interaction
+
+https://limitless-citadel-71686.herokuapp.com/api/alerts
