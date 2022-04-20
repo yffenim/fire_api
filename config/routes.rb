@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   scope '/api' do
     resources :alerts
     resources :users
+    resources :seconds
+    resources :thirds
   end 
 
   devise_for :admin_users, ActiveAdmin::Devise.config

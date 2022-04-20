@@ -3,7 +3,6 @@ class AlertsController < ApiController
 
   # GET /alerts
   def index
-
     alerts = Alert.all.order("created_at DESC")
     
     # last 5 alert because that's all a user needs to see on a dashboard
