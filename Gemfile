@@ -7,6 +7,7 @@ ruby '3.0.3'
 gem 'devise'
 gem 'activeadmin'
 gem 'sass-rails'
+gem 'devise_token_auth'
 # disable CORS 
 gem 'rack-cors', :require => 'rack/cors'
 # code formatter based on RAILS best pratices

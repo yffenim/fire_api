@@ -85,6 +85,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_token_auth (1.2.0)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 6.2)
     diff-lcs (1.5.0)
     dotenv (2.7.6)
     erubi (1.10.0)
@@ -246,6 +250,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise
+  devise_token_auth
   dotenv (~> 2.7, >= 2.7.6)
   listen (~> 3.3)
   pg
