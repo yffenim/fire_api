@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 DeviseTokenAuth.setup do |config|
+  config.default_confirm_success_url = "confirmed"
+  config.change_headers_on_each_request = false
   # By default the authorization headers will change after each request. The
   # client is responsible for keeping track of the changing tokens. Change
   # this to false to prevent the Authorization header from changing after
