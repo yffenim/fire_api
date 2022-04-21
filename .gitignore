@@ -46,3 +46,6 @@
 # dotenv, dotenv-rails
 .env
 .env*.local
+
+# Ignore copies of old files
+./old

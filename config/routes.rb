@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
-  scope '/api' do
+  devise_for :users, only: []
+
+  scope '/api', defaults: { format: :json } do
+    resource :login, only: [:create], controller: :sessions
     resources :alerts
     resources :users
     resources :seconds

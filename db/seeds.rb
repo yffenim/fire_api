@@ -15,10 +15,12 @@ AdminUser.create!(email: 'admin@example.com', password: 'password', password_con
 ada = User.new(
   first_name: "Ada",
   last_name: "Ardor",
+  username: "ada@nabokov.com",
   email: 'ada@nabokov.com', 
   id: 1,
   fire_dept: 1,
-  fire_station: 1
+  fire_station: 1,
+  password: "password"
 )
 ada.save!
 
