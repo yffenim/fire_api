@@ -13,12 +13,11 @@ AdminUser.destroy_all
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 ada = User.new(
-  first_name: "Ada",
-  last_name: "Ardor",
-  email: 'ada@nabokov.com', 
-  id: 1,
-  fire_dept: 1,
-  fire_station: 1
+  name: 'Ada',
+  uid: 'ada@ardour.com',
+  email: 'ada@ardour.com', 
+  password: 'password',
+  password_confirmation: 'password'
 )
 ada.save!
 

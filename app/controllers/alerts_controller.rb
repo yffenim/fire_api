@@ -1,15 +1,22 @@
 class AlertsController < ApiController
+  # require 'pry-byebug'
   before_action :set_alert, only: %i[ show update destroy] 
-
+  # binding.pry
+  # before_action :authenticate_user!
+  
   # GET /alerts
   def index
-    alerts = Alert.all.order("created_at DESC")
-    
+    # puts "boolean for #{user_signed_in?.inspect}"
+    # junk = user_signed_in?
+    # binding.pry
+    alerts = Alert.all.order("updated_at DESC")
     # last 5 alert because that's all a user needs to see on a dashboard
-    @alerts = alerts[0..4]
+    @alerts = alerts[0..4] # or use .last(5)
     set_avg_and_count(Alert.all) if @alerts.count > 0
     
+    # binding.pry
     render json: [@alerts, @avg_and_count]
+    # binding.pry
   end
 
   # GET /alerts/1
