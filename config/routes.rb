@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   
   scope '/api' do
-    resources :alerts
+    resources :alerts # get request for all data models is set up at Alert#index
     resources :users
     resources :seconds
     resources :thirds

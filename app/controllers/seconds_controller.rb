@@ -46,6 +46,6 @@ class SecondsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def second_params
-      params.require(:second).permit(:index, :show, :create, :update, :delete)
+      params.require(:second).permit(:user_id, :level, :title)
     end
 end

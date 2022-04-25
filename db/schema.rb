@@ -46,11 +46,12 @@ ActiveRecord::Schema.define(version: 2022_04_25_032206) do
     t.integer "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
     t.index ["user_id"], name: "index_alerts_on_user_id"
   end
 
   create_table "seconds", force: :cascade do |t|
-    t.string "title"
+    t.string "title_for_seconds"
     t.integer "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 2022_04_25_032206) do
   end
 
   create_table "thirds", force: :cascade do |t|
-    t.string "title"
+    t.string "title_for_thirds"
     t.integer "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

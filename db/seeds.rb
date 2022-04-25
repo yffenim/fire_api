@@ -22,11 +22,11 @@ ada = User.new(
 ada.save!
 
 10.times do
-  alert = Alert.new(level: rand(1..9), user_id: ada.id)
+  alert = Alert.new(level: rand(1..9), user_id: ada.id, title: "alertness")
   alert.save!
-  second = Second.new(level: rand(1..9), user_id: ada.id, title: "appetite")
+  second = Second.new(level: rand(1..9), user_id: ada.id, title_for_seconds: "appetite")
   second.save!
 end
 
-p "Created #{User.count} users with #{Alert.count} alertness levels  and #{Second.count} #{Second.first.title} levels"
+p "Created #{User.count} users with #{Alert.count} #{Alert.first.title} levels  and #{Second.count} #{Second.first.title_for_seconds} levels"
 

@@ -6,17 +6,16 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
-    # puts "boolean for #{user_signed_in?.inspect}"
-    # junk = user_signed_in?
-    # binding.pry
-    alerts = Alert.all.order("updated_at DESC")
-    # last 5 alert because that's all a user needs to see on a dashboard
-    @alerts = alerts[0..4] # or use .last(5)
-    set_avg_and_count(Alert.all) if @alerts.count > 0
+    @alerts = Alert.all.order("updated_at DESC").first(5)
+    @alerts_stats = set_avg_and_count(Alert.all) if @alerts.count > 0
     
-    # binding.pry
-    render json: [@alerts, @avg_and_count]
-    # binding.pry
+    @seconds = Second.all.order("updated_at DESC").first(5)
+    @seconds_stats = set_avg_and_count(Second.all) if @seconds.count > 0
+    
+    @thirds = Third.all.order("updated_at DESC").first(5)
+    @thirds_stats = set_avg_and_count(Third.all) if @thirds.count > 0
+
+    render json: [@alerts, @alerts_stats, @seconds, @seconds_stats, @thirds, @thirds_stars]
   end
 
   # GET /alerts/1
@@ -60,11 +59,18 @@ class AlertsController < ApiController
       params.require(:alert).permit(:user_id, :level)
     end
   
-    def set_avg_and_count(alerts)
-      alert_levels = []
-      alerts.each { | a | alert_levels << a.level }
-      avg = alert_levels.inject(0, :+) / alerts.count
-      @avg_and_count = { "average": avg, "count": alerts.count }
+    # def set_avg_and_count(alerts)
+    #   alert_levels = []
+    #   alerts.each { | a | alert_levels << a.level }
+    #   avg = alert_levels.inject(0, :+) / alerts.count
+    #   @avg_and_count = { "average": avg, "count": alerts.count }
+    # end 
+
+    def set_avg_and_count(model_objects)
+      levels = []
+      model_objects.each { | a | levels << a.level }
+      avg = levels.inject(0, :+) / model_objects.count
+      @avg_and_count = { "average": avg, "count": model_objects.count }
     end 
 
 end

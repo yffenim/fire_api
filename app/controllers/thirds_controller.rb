@@ -46,6 +46,6 @@ class ThirdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def third_params
-      params.fetch(:third, {})
+      params.require(:third).permit(:user_id, :level, :title)
     end
 end
