@@ -12,7 +12,11 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
-    render json: [@user, @user.alerts]
+    @alerts_stats = avg_and_count(Alert.all) if Alert.count > 0
+    @seconds_stats = avg_and_count(Second.all) if Second.count > 0
+    @thirds_stats = avg_and_count(Third.all) if Third.count > 0
+
+    render json: [@user, @alerts_stats, @seconds_stats, @thirds_stats]
   end
 
   # POST /users
@@ -50,4 +54,12 @@ class UsersController < ApiController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :fire_dept, :fire_station)
     end
+
+    def avg_and_count(model_objects)
+      levels = []
+      model_objects.each { | a | levels << a.level }
+      avg = levels.inject(0, :+) / model_objects.count
+      @avg_and_count = { "average": avg, "count": model_objects.count }
+    end
+
 end

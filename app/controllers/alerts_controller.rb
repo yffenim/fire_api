@@ -6,16 +6,16 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
-    @alerts = Alert.all.order("updated_at DESC").first(5)
-    @alerts_stats = set_avg_and_count(Alert.all) if @alerts.count > 0
+    @alerts = Alert.all.order("updated_at DESC").first(10)
+    # @alerts_stats = set_avg_and_count(Alert.all) if @alerts.count > 0
     
-    @seconds = Second.all.order("updated_at DESC").first(5)
-    @seconds_stats = set_avg_and_count(Second.all) if @seconds.count > 0
+    @seconds = Second.all.order("updated_at DESC").first(10)
+    # @seconds_stats = set_avg_and_count(Second.all) if @seconds.count > 0
     
-    @thirds = Third.all.order("updated_at DESC").first(5)
-    @thirds_stats = set_avg_and_count(Third.all) if @thirds.count > 0
+    @thirds = Third.all.order("updated_at DESC").first(10)
+    # @thirds_stats = set_avg_and_count(Third.all) if @thirds.count > 0
 
-    render json: [@alerts, @alerts_stats, @seconds, @seconds_stats, @thirds, @thirds_stars]
+    render json: [@alerts, @alerts.count, @seconds, @seconds.count, @thirds, @thirds.count]
   end
 
   # GET /alerts/1
@@ -66,11 +66,11 @@ class AlertsController < ApiController
     #   @avg_and_count = { "average": avg, "count": alerts.count }
     # end 
 
-    def set_avg_and_count(model_objects)
-      levels = []
-      model_objects.each { | a | levels << a.level }
-      avg = levels.inject(0, :+) / model_objects.count
-      @avg_and_count = { "average": avg, "count": model_objects.count }
-    end 
+    # def set_avg_and_count(model_objects)
+    #   levels = []
+    #   model_objects.each { | a | levels << a.level }
+    #   avg = levels.inject(0, :+) / model_objects.count
+    #   @avg_and_count = { "average": avg, "count": model_objects.count }
+    # end 
 
 end
