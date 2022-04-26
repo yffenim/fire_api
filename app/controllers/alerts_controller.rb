@@ -1,16 +1,21 @@
 class AlertsController < ApiController
-  # require 'pry-byebug'
+  require 'pry-byebug'
   before_action :set_alert, only: %i[ show update destroy] 
   # binding.pry
   # before_action :authenticate_user!
   
   # GET /alerts
   def index
-    @alerts = Alert.all.order("updated_at DESC").first(10)
-    @seconds = Second.all.order("updated_at DESC").first(10)
-    @thirds = Third.all.order("updated_at DESC").first(10)
+    @alerts = Alert.all.order("updated_at DESC").last(10)
+    @seconds = Second.all.order("updated_at DESC").last(10)
+    @thirds = Third.all.order("updated_at DESC").last(10)
 
     render json: [@alerts, @alerts.count, @seconds, @seconds.count, @thirds, @thirds.count]
+
+    # @time = Alert.first.updated_at.inspect
+
+    # binding.pry
+    # render json: @time
   end
 
   # GET /alerts/1
