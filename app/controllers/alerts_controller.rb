@@ -6,9 +6,9 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
-    @alerts = Alert.all.order("updated_at DESC").last(10)
-    @seconds = Second.all.order("updated_at DESC").last(10)
-    @thirds = Third.all.order("updated_at DESC").last(10)
+    @alerts = Alert.all.order("updated_at DESC")
+    @seconds = Second.all.order("updated_at DESC")
+    @thirds = Third.all.order("updated_at DESC")
 
     render json: [@alerts, @alerts.count, @seconds, @seconds.count, @thirds, @thirds.count]
 
