@@ -1,5 +1,4 @@
 class UsersController < ApiController
-  require 'pry-byebug'
 
   before_action :set_user, only: [:show, :update, :destroy]
 
