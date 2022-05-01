@@ -45,9 +45,16 @@ module FireApi
     config.api_only = true
     # tell rails about scaffolding bc we went api-only
     config.app_generators.scaffold_controller = :scaffold_controller
-    
-    # add safe origin domain to avoid CORS issues
-    # config.hosts << "localhost"
+   
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+        headers: :any,
+        expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+         methods: [:get, :post, :options, :delete, :put, :patch]
+      end
+    end
   
   end
 end
