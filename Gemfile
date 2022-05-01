@@ -9,6 +9,7 @@ gem 'activeadmin'
 gem 'sass-rails'
 gem 'devise_token_auth'
 gem 'omniauth', '~> 2.1'
+gem 'bcrypt'
 # disable CORS 
 gem 'rack-cors', :require => 'rack/cors'
 # code formatter based on RAILS best pratices
