@@ -1,8 +1,6 @@
 class AlertsController < ApiController
-  # require 'pry-byebug'
-  before_action :set_alert, only: %i[ show update destroy] 
-  # binding.pry
   before_action :authenticate_user!
+  before_action :set_alert, only: %i[ show update destroy] 
   
   # GET /alerts
   def index
