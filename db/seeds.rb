@@ -21,10 +21,23 @@ ada = User.new(
 )
 ada.save!
 
-20.times do
-  alert = Alert.new(level: rand(1..9), user_id: ada.id, title: "alertness")
+5.times do
+  num = rand(1..10)
+  alert = Alert.new(
+    level: rand(1..9),
+    user_id: ada.id, 
+    title: "alertness",
+    created_at: num.days.ago,
+    updated_at: num.days.ago
+  )
   alert.save!
-  second = Second.new(level: rand(1..9), user_id: ada.id, title_for_seconds: "appetite")
+  second = Second.new(
+    level: rand(1..9), 
+    user_id: ada.id, 
+    title_for_seconds: "appetite",
+    created_at: num.days.ago,
+    updated_at: num.days.ago
+  )
   second.save!
 end
 

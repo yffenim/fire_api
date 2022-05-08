@@ -4,6 +4,7 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
+    # @alerts = Alert.all.order("updated_at DESC")
     @alerts = current_user.alerts.all.order("updated_at DESC")
     render json: @alerts
   end
