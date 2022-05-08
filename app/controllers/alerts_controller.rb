@@ -4,16 +4,8 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
-    @alerts = Alert.all.order("updated_at DESC")
-    @seconds = Second.all.order("updated_at DESC")
-    @thirds = Third.all.order("updated_at DESC")
-
-    render json: [@alerts, @alerts.count, @seconds, @seconds.count, @thirds, @thirds.count]
-
-    # @time = Alert.first.updated_at.inspect
-
-    # binding.pry
-    # render json: @time
+    @alerts = current_user.alerts.all.order("updated_at DESC")
+    render json: @alerts
   end
 
   # GET /alerts/1
@@ -56,6 +48,5 @@ class AlertsController < ApiController
     def alert_params
       params.require(:alert).permit(:user_id, :level)
     end
-  
 
 end
