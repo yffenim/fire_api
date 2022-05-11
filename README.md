@@ -40,12 +40,26 @@ If you need to make model changes to the database:
 
 # Docs -- For Later Versions - TBD
 
-### Active Admin Users - CRUD, Authentication, Data Visualization
+## API Endpoints
+
+### Users
+
+**Create an account:** `https://limitless-citadel-71686.herokuapp.com/auth/sign_up`
+
+**Login to your account:** `https://limitless-citadel-71686.herokuapp.com/auth/sign_in`
+
+## Models (Tracked Data)
+
+**Alertness:** `https://limitless-citadel-71686.herokuapp.com/api/alerts`
+
+**Second Model:** `https://limitless-citadel-71686.herokuapp.com/api/seconds`
+
+**Third Model:** `https://limitless-citadel-71686.herokuapp.com/api/thirds`
+
+## Browser Interaction
+
+### Active Admin Users - NOT for regular interaction
+
+`https://limitless-citadel-71686.herokuapp.com/admin`
 
 Default user login: "admin@example.com" "password"
-
-### Users -- CRUD, Authentication, Data Visualization
-
-### Alerts -- API-interaction
-
-https://limitless-citadel-71686.herokuapp.com/api/alerts
