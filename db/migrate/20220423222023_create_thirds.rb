@@ -1,7 +1,7 @@
 class CreateThirds < ActiveRecord::Migration[6.1]
   def change
     create_table :thirds do |t|
-      t.string :title_for_thirds
+      t.string :title
       t.integer :level
       t.references :user, null: false, foreign_key: true
 

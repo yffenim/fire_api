@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_022325) do
   end
 
   create_table "seconds", force: :cascade do |t|
-    t.string "title_for_seconds"
+    t.string "title"
     t.integer "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_022325) do
   end
 
   create_table "thirds", force: :cascade do |t|
-    t.string "title_for_thirds"
+    t.string "title"
     t.integer "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

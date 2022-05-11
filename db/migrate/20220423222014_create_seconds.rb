@@ -1,7 +1,7 @@
 class CreateSeconds < ActiveRecord::Migration[6.1]
   def change
     create_table :seconds do |t|
-      t.string :title_for_seconds
+      t.string :title
       t.integer :level
       t.references :user, null: false, foreign_key: true
 

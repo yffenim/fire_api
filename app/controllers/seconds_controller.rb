@@ -3,8 +3,8 @@ class SecondsController < ApplicationController
 
   # GET /seconds
   def index
-    # @seconds = Second.all
-    @seconds = current_user.alerts.all.order("updated_at DESC")
+    @seconds = Second.all.order("updated_at DESC")
+    # @seconds = current_user.seconds.all.order("updated_at DESC")
     render json: @seconds
   end
 

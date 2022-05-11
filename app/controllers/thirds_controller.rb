@@ -3,8 +3,8 @@ class ThirdsController < ApplicationController
 
   # GET /thirds
   def index
-    # @thirds = Third.all
-    @thirds = current_user.alerts.all.order("updated_at DESC")
+    @thirds = Third.all.order("updated_at DESC")
+    # @thirds = current_user.thirds.all.order("updated_at DESC")
 
     render json: @thirds
   end

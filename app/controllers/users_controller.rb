@@ -4,9 +4,17 @@ class UsersController < ApiController
   
   # GET /users
   def index
-    @users = User.all
+    # @users = User.all
+    # render json: @users
+    # @alerts = Alerts.all
 
-    render json: @users
+    # csv_string = CsvShaper.encode do |csv|
+    #   csv.headers :updated_at, :level, :title
+
+    #   csv.rows @alerts do |csv, user|
+    #     csv.cells :updated_at, :level:, :title
+    #   end
+    # end
   end
 
   # GET /users/1

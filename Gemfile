@@ -16,6 +16,8 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'robocop', '~> 0.1.1'
 # loads env variables from .env
 gem 'dotenv', '~> 2.7', '>= 2.7.6'
+# generates csv
+gem 'csv_shaper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
 # Use Puma as the app server
