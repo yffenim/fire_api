@@ -1,29 +1,20 @@
 class UsersController < ApiController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_user, only: [:show, :update, :destroy]
   
   # GET /users
   def index
-    # @users = User.all
-    # render json: @users
-    # @alerts = Alerts.all
-
-    # csv_string = CsvShaper.encode do |csv|
-    #   csv.headers :updated_at, :level, :title
-
-    #   csv.rows @alerts do |csv, user|
-    #     csv.cells :updated_at, :level:, :title
-    #   end
-    # end
+    # @user = current_user
+    @user = User.first # id 2
+    render json: @user
+    # @alerts_stats = avg_and_count(Alert.all, Alert.first.title) if Alert.count > 0
+    # @seconds_stats = avg_and_count(Second.all, Second.first.title) if Second.count > 0
+    # @thirds_stats = avg_and_count(Third.all, Third.first.title) if Third.count > 0
+    # render json: [@user, @alerts_stats, @seconds_stats, @thirds_stats]
   end
 
   # GET /users/1
   def show
-    @alerts_stats = avg_and_count(Alert.all) if Alert.count > 0
-    @seconds_stats = avg_and_count(Second.all) if Second.count > 0
-    @thirds_stats = avg_and_count(Third.all) if Third.count > 0
-
-    render json: [@user, @alerts_stats, @seconds_stats, @thirds_stats]
   end
 
   # POST /users
@@ -62,11 +53,11 @@ class UsersController < ApiController
       params.require(:user).permit(:first_name, :last_name, :email, :fire_dept, :fire_station)
     end
 
-    def avg_and_count(model_objects)
+    def avg_and_count(model_objects, title)
       levels = []
       model_objects.each { | a | levels << a.level }
       avg = levels.inject(0, :+) / model_objects.count
-      @avg_and_count = { "average": avg, "count": model_objects.count }
+      @avg_and_count = { "title": title, "average": avg, "count": model_objects.count }
     end
 
 end

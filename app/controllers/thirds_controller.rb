@@ -1,12 +1,15 @@
-class ThirdsController < ApplicationController
+class ThirdsController < ApiController
   before_action :set_third, only: [:show, :update, :destroy]
+  require 'pry-byebug'
 
   # GET /thirds
   def index
     @thirds = Third.all.order("updated_at DESC")
     # @thirds = current_user.thirds.all.order("updated_at DESC")
-
-    render json: @thirds
+    
+    @thirds_stats = avg_and_count(Third.all) if @thirds.count > 0
+    render json: [@thirds_stats, @thirds]
+    # render json: @thirds
   end
 
   # GET /thirds/1
@@ -49,4 +52,5 @@ class ThirdsController < ApplicationController
     def third_params
       params.require(:third).permit(:user_id, :level, :title)
     end
+
 end

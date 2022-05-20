@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Second.destroy_all
+Third.destroy_all
 Alert.destroy_all
 User.destroy_all
 AdminUser.destroy_all
@@ -22,9 +23,9 @@ ada = User.new(
 ada.save!
 
 20.times do
-  num = rand(1..10)
+  num = rand(1..9)
   alert = Alert.new(
-    level: rand(1..9),
+    level: num,
     user_id: ada.id, 
     title: "alertness",
     created_at: num.days.ago,
@@ -32,7 +33,7 @@ ada.save!
   )
   alert.save!
   second = Second.new(
-    level: rand(1..9), 
+    level: num, 
     user_id: ada.id, 
     title: "appetite",
     created_at: num.days.ago,
@@ -43,3 +44,4 @@ end
 
 p "Created #{User.count} users with #{Alert.count} #{Alert.first.title} levels  and #{Second.count} #{Second.first.title} levels"
 
+# p "Created #{User.count} users with #{Alert.count} #{Alert.first.title} levels"

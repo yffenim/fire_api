@@ -1,11 +1,12 @@
-class SecondsController < ApplicationController
+class SecondsController < ApiController
   before_action :set_second, only: [:show, :update, :destroy]
 
   # GET /seconds
   def index
     @seconds = Second.all.order("updated_at DESC")
     # @seconds = current_user.seconds.all.order("updated_at DESC")
-    render json: @seconds
+    @seconds_stats = avg_and_count(Second.all) if Second.all.count > 0
+    render json: [@seconds_stats, @seconds]
   end
 
   # GET /seconds/1
