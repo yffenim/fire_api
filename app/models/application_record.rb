@@ -18,9 +18,4 @@ class ApplicationRecord < ActiveRecord::Base
     self.level = float
   end
 
-  def convert_to_1_to_9(scale, float)
-    # for finding the average
-    
-  end
-
 end
