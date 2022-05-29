@@ -5,12 +5,10 @@ class UsersController < ApiController
   # GET /users
   def index
     # @user = current_user
-    @user = User.first # id 2
-    render json: @user
-    # @alerts_stats = avg_and_count(Alert.all, Alert.first.title) if Alert.count > 0
-    # @seconds_stats = avg_and_count(Second.all, Second.first.title) if Second.count > 0
-    # @thirds_stats = avg_and_count(Third.all, Third.first.title) if Third.count > 0
-    # render json: [@user, @alerts_stats, @seconds_stats, @thirds_stats]
+    @user = User.first
+    @user.last_sign_in_at != nil ? @signed_in = { "has_signed_in": true } :
+      @signed_in = { "has_signed_in": false }
+    render json: [@user, @signed_in]
   end
 
   # GET /users/1

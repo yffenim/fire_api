@@ -4,12 +4,17 @@ class ThirdsController < ApiController
 
   # GET /thirds
   def index
-    @thirds = Third.all.order("updated_at DESC")
-    # @thirds = current_user.thirds.all.order("updated_at DESC")
+    @thirds_total = Third.all.count - 1
     
-    @thirds_stats = avg_and_count(Third.all) if @thirds.count > 0
-    render json: [@thirds_stats, @thirds]
-    # render json: @thirds
+    if @thirds_total > 0
+      @default_third = Third.all.order if @thirds_total > 0
+      @user_thirds = Second.all.order("updated_at DESC")[1...@seconds_total]
+      @thirds_avg = get_avg(@user_thirds, @thirds_total)
+      @model_info = format_info(@thirds_total, @thirds_avg, @default_third)
+      render json: [ @model_info, @user_thirds ]
+    else 
+      render json: no_data
+    end
   end
 
   # GET /thirds/1

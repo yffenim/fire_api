@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_022325) do
 
   create_table "alerts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "level"
+    t.float "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_022325) do
 
   create_table "seconds", force: :cascade do |t|
     t.string "title"
-    t.integer "level"
+    t.float "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_022325) do
 
   create_table "thirds", force: :cascade do |t|
     t.string "title"
-    t.integer "level"
+    t.float "level"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -24,11 +24,13 @@ Browser: TBD
 
 ### Online Interaction
 
-https://limitless-citadel-71686.herokuapp.com/ 
+Base URL: https://limitless-citadel-71686.herokuapp.com/ 
 
-If you need to reseed the database:
+If you need to reseed the dddatabase:
 
 `heroku rake db:seed`
+
+**Note: Db requires default object data to work so keep it seeded.**
 
 If you need to make model changes to the database:
 

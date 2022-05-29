@@ -4,11 +4,22 @@ class AlertsController < ApiController
   
   # GET /alerts
   def index
-    # @alerts = current_user.alerts.all.order("updated_at DESC")
-    @alerts = Alert.all.order("updated_at DESC")
-    @alerts_stats = avg_and_count(Alert.all) if Alert.all.count > 0
-    # render json: [@user, @alerts_stats, @seconds_stats, @thirds_stats]
-    render json: [@alerts_stats, @alerts]
+    # the first alert is a system default and does not belong to the user
+    # this is true of all models
+    @alerts_total = Alert.all.count - 1 
+    
+    if @alerts_total > 0
+      # first object is system default object used to track titles
+      @default_alert = Alert.first
+      # user-only objects
+      @user_alerts = Alert.all.order("updated_at DESC")[1...@alerts_total]
+      @alerts_avg = get_avg(@user_alerts, @alerts_total)
+      @model_info = format_info(@alerts_total, @alerts_avg, @default_alert)
+    
+      render json: [@model_info, @user_alerts]
+    else
+      render json: no_data
+    end
   end
 
   # GET /alerts/1
@@ -19,7 +30,8 @@ class AlertsController < ApiController
   # POST /alerts
   def create
     @alert = Alert.new(alert_params)
-
+    puts "level in create: #{alert_params["level"]}"
+    puts "level class in create: #{alert_params["level"].class}"
     if @alert.save
       render json: @alert, status: :created, location: @alert
     else

@@ -4,13 +4,30 @@ class ApiController < ActionController::API
   # before_action :authenticate_user!
   # skip_before_action :verify_authenticity_token // this doesn't work bc the :verify_authenticity_token is inherited from base
 
-    def avg_and_count(model_objects)
-      p "objects: #{model_objects}"
+  
+    def get_avg(objects, count)
       levels = []
-      model_objects.each { | a | levels << a.level }
+      objects.each { |obj| levels << obj.level }
       levels = levels.compact
-      avg = levels.inject(0, :+) / model_objects.count
-      @avg_and_count = { "average": avg, "count": model_objects.count }
+      avg = levels.inject(0, :+) / count
     end
+
+    def format_info(total, avg, default)
+      info = { "count": total, "avg": avg, "first_obj": default }
+    end
+
+    def no_data
+      msg = "data object does not exist"
+      first_obj = { 
+        id: 0, 
+        user_id: 0, 
+        level: 0, 
+        created_at: msg,
+        updated_at: msg 
+      }
+      info = { "count": 0, "avg": 0, "first_obj": first_obj }
+      json = [ info, [] ]
+    end
+
 end
 
