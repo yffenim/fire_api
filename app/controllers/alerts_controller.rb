@@ -1,22 +1,23 @@
 class AlertsController < ApiController
   # before_action :authenticate_user!
   before_action :set_alert, only: %i[ show update destroy] 
-  
+  require 'pry-byebug'
+ 
   # GET /alerts
   def index
     # the first alert is a system default and does not belong to the user
     # this is true of all models
-    @alerts_total = Alert.all.count - 1 
+    alerts_total = get_total(Alert)
     
-    if @alerts_total > 0
+    if alerts_total > 0
       # first object is system default object used to track titles
-      @default_alert = Alert.first
+      default_alert = Alert.first
       # user-only objects
-      @user_alerts = Alert.all.order("updated_at DESC")[1...@alerts_total]
-      @alerts_avg = get_avg(@user_alerts, @alerts_total)
-      @model_info = format_info(@alerts_total, @alerts_avg, @default_alert)
+      user_alerts = Alert.all.order("updated_at DESC")[1...alerts_total]
+      alerts_avg = get_avg(user_alerts, alerts_total)
+      model_info = format_info(alerts_total, alerts_avg, default_alert)
     
-      render json: [@model_info, @user_alerts]
+      render json: [model_info, user_alerts]
     else
       render json: no_data
     end
@@ -27,11 +28,11 @@ class AlertsController < ApiController
     render json: @alert
   end
 
+# if we are changing the title attribute, please update all attributes
   # POST /alerts
   def create
     @alert = Alert.new(alert_params)
-    puts "level in create: #{alert_params["level"]}"
-    puts "level class in create: #{alert_params["level"].class}"
+    @alert.title = "alertness"
     if @alert.save
       render json: @alert, status: :created, location: @alert
     else

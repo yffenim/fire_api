@@ -39,7 +39,7 @@ system_default_for_seconds.save!
 system_default_for_thirds = Third.new(
   level: 5, 
     user_id: ada.id, 
-    title: "title II",
+    title: "title III",
   )
 system_default_for_thirds.save!
 
@@ -50,6 +50,7 @@ system_default_for_thirds.save!
   alert = Alert.new(
     level: num,
     user_id: ada.id, 
+    title: "alertness",
     created_at: num.days.ago,
     updated_at: num.days.ago
   )

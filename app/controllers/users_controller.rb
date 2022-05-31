@@ -4,11 +4,24 @@ class UsersController < ApiController
   
   # GET /users
   def index
-    # @user = current_user
-    @user = User.first
-    @user.last_sign_in_at != nil ? @signed_in = { "has_signed_in": true } :
-      @signed_in = { "has_signed_in": false }
-    render json: [@user, @signed_in]
+    user = User.first
+    # alert_id = user.alerts.first.id
+    second_id = user.seconds.first.id
+    seconds_title = user.seconds.first.title
+    third_id = user.thirds.first.id
+    thirds_title = user.thirds.first.title
+    user.last_sign_in_at != nil ? signed_in = true : signed_in = false 
+
+    user_info = { 
+      "has_signed_in": signed_in,
+      # "alertId": alert_id,
+      "secondId": second_id,
+      "secondsTitle": seconds_title,
+      "thirdId": third_id,
+      "thirdsTitle": thirds_title
+    }
+
+    render json: [ user, user_info ]
   end
 
   # GET /users/1

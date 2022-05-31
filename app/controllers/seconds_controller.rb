@@ -3,16 +3,15 @@ class SecondsController < ApiController
 
   # GET /seconds
   def index
-    @seconds_total = Second.all.count - 1
-
-    if @seconds_total > 0
-      @default_second = Second.all.order if @seconds_total > 0
-      @user_seconds = Second.all.order("updated_at DESC")[1...@seconds_total]
-      @seconds_avg = get_avg(@user_seconds, @seconds_total)
-      @model_info = format_info(@seconds_total, @seconds_avg, @default_second)
-      render json: [@model_info, @user_seconds]
+    seconds_total = get_total(Second)
+    if seconds_total > 0
+      default_second = Second.first
+      user_seconds = Second.all.order("updated_at DESC")[1...seconds_total]
+      seconds_avg = get_avg(user_seconds, seconds_total)
+      model_info = format_info(seconds_total, seconds_avg, default_second)
+      render json: [model_info, user_seconds]
     else 
-      render json: no_data
+      render json: no_user_data(Second)
     end
 
   end
@@ -35,6 +34,12 @@ class SecondsController < ApiController
 
   # PATCH/PUT /seconds/1
   def update
+    # update all object titles if relevant
+    params_title = second_params["title"]
+    if params_title != nil
+      Second.update_all(:title => params_title)
+    end
+
     if @second.update(second_params)
       render json: @second
     else

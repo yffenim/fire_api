@@ -4,16 +4,16 @@ class ThirdsController < ApiController
 
   # GET /thirds
   def index
-    @thirds_total = Third.all.count - 1
+    thirds_total = get_total(Third)
     
-    if @thirds_total > 0
-      @default_third = Third.all.order if @thirds_total > 0
-      @user_thirds = Second.all.order("updated_at DESC")[1...@seconds_total]
-      @thirds_avg = get_avg(@user_thirds, @thirds_total)
-      @model_info = format_info(@thirds_total, @thirds_avg, @default_third)
-      render json: [ @model_info, @user_thirds ]
+    if thirds_total > 0
+      default_third = Third.first
+      user_thirds = Third.all.order("updated_at DESC")[1...thirds_total]
+      thirds_avg = get_avg(user_thirds, thirds_total)
+      model_info = format_info(thirds_total, thirds_avg, default_third)
+      render json: [ model_info, user_thirds ]
     else 
-      render json: no_data
+      render json: no_user_data(Third)
     end
   end
 
@@ -25,7 +25,6 @@ class ThirdsController < ApiController
   # POST /thirds
   def create
     @third = Third.new(third_params)
-
     if @third.save
       render json: @third, status: :created, location: @third
     else
@@ -35,8 +34,14 @@ class ThirdsController < ApiController
 
   # PATCH/PUT /thirds/1
   def update
+    # if the title exists and is different, update the title
+    params_title = third_params["title"]
+    if params_title != nil
+      Third.update_all(:title => params_title)
+    end
+    
     if @third.update(third_params)
-      render json: @third
+      render json: @third 
     else
       render json: @third.errors, status: :unprocessable_entity
     end

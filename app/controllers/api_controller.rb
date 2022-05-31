@@ -4,6 +4,9 @@ class ApiController < ActionController::API
   # before_action :authenticate_user!
   # skip_before_action :verify_authenticity_token // this doesn't work bc the :verify_authenticity_token is inherited from base
 
+  def get_total(model)
+    total = model.all.count - 1 
+  end
 
   def get_avg(objects, count)
     levels = []
@@ -12,21 +15,16 @@ class ApiController < ActionController::API
     # convert back to 1-9 scale bc that's what client sees
     levels = levels.map { |level| convert_to_1_to_9(level) }
     avg = levels.inject(0, :+) / count
+    avg.round
   end
 
   def format_info(total, avg, default)
     info = { "count": total, "avg": avg, "first_obj": default }
   end
 
-  def no_data
+  def no_user_data(model)
     msg = "data object does not exist"
-    first_obj = { 
-      id: 0, 
-      user_id: 0, 
-      level: 0, 
-      created_at: msg,
-      updated_at: msg 
-    }
+    first_obj = model.first
     info = { "count": 0, "avg": 0, "first_obj": first_obj }
     json = [ info, [] ]
   end
