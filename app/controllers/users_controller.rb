@@ -15,9 +15,9 @@ class UsersController < ApiController
     user_info = { 
       "has_signed_in": signed_in,
       # "alertId": alert_id,
-      "secondId": second_id,
+      # "secondId": second_id,
       "secondsTitle": seconds_title,
-      "thirdId": third_id,
+      # "thirdId": third_id,
       "thirdsTitle": thirds_title
     }
 

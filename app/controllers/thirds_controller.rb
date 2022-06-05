@@ -4,16 +4,23 @@ class ThirdsController < ApiController
 
   # GET /thirds
   def index
-    thirds_total = get_total(Third)
-    
+    thirds_count = Third.all.count
+    thirds_total = get_total(Third) 
+    user_thirds = []
+    default_id = 3
+    default_third = Third.find(default_id)
+
     if thirds_total > 0
-      default_third = Third.first
-      user_thirds = Third.all.order("updated_at DESC")[1...thirds_total]
+      Third.all.order("updated_at DESC").each do | entry |
+        user_thirds << entry if entry.id != default_id
+      end
+
       thirds_avg = get_avg(user_thirds, thirds_total)
       model_info = format_info(thirds_total, thirds_avg, default_third)
-      render json: [ model_info, user_thirds ]
-    else 
-      render json: no_user_data(Third)
+
+      render json: [model_info, user_thirds]
+    else
+      render json: no_user_data
     end
   end
 

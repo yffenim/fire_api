@@ -1,26 +1,30 @@
 class AlertsController < ApiController
   # before_action :authenticate_user!
   before_action :set_alert, only: %i[ show update destroy] 
-  require 'pry-byebug'
- 
+  # require 'pry-byebug'
+
   # GET /alerts
   def index
     # the first alert is a system default and does not belong to the user
-    # this is true of all models
-    alerts_total = get_total(Alert)
-    
+    # this is true for all models
+    alerts_count = Alert.all.count
+    alerts_total = get_total(Alert) # total amount minus the system default
+    default_id = 1 
+    default_alert = Alert.find(default_id)
+    user_alerts = []
+
     if alerts_total > 0
-      # first object is system default object used to track titles
-      default_alert = Alert.first
-      # user-only objects
-      user_alerts = Alert.all.order("updated_at DESC")[1...alerts_total]
+      Alert.all.order("updated_at DESC").each do |entry| 
+        user_alerts << entry if entry.id != default_id
+      end
+
       alerts_avg = get_avg(user_alerts, alerts_total)
       model_info = format_info(alerts_total, alerts_avg, default_alert)
-    
       render json: [model_info, user_alerts]
     else
-      render json: no_data
+      render json: no_user_data
     end
+
   end
 
   # GET /alerts/1

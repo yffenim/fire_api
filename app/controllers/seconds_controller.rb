@@ -3,15 +3,23 @@ class SecondsController < ApiController
 
   # GET /seconds
   def index
+    seconds_count = Second.all.count
     seconds_total = get_total(Second)
+    user_seconds = []
+    default_id = 2
+    default_second = Second.find(default_id)
+    
     if seconds_total > 0
-      default_second = Second.first
-      user_seconds = Second.all.order("updated_at DESC")[1...seconds_total]
+      Second.all.order("updated_at DESC").each do |entry| 
+        user_seconds << entry if entry.id != default_id
+      end
+      
       seconds_avg = get_avg(user_seconds, seconds_total)
       model_info = format_info(seconds_total, seconds_avg, default_second)
+    
       render json: [model_info, user_seconds]
     else 
-      render json: no_user_data(Second)
+      render json: no_user_data
     end
 
   end

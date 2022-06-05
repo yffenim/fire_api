@@ -4,24 +4,31 @@ class ApiController < ActionController::API
   # before_action :authenticate_user!
   # skip_before_action :verify_authenticity_token // this doesn't work bc the :verify_authenticity_token is inherited from base
 
+
+  # get the array of user data entries excluding first object 
+  # first object is system default used to track titles
   def get_total(model)
     total = model.all.count - 1 
   end
 
+  # get average of user data entries
   def get_avg(objects, count)
     levels = []
     objects.each { |obj| levels << obj.level }
     levels = levels.compact
     # convert back to 1-9 scale bc that's what client sees
-    levels = levels.map { |level| convert_to_1_to_9(level) }
+    # levels = levels.map { |level| convert_to_1_to_9(level) }
+    # puts "LEVELS SHOULD BE 1-9: #{levels}"
     avg = levels.inject(0, :+) / count
     avg.round
   end
 
+  # formatting for user stats on model api call
   def format_info(total, avg, default)
     info = { "count": total, "avg": avg, "first_obj": default }
   end
 
+  # default no user data json object 
   def no_user_data(model)
     msg = "data object does not exist"
     first_obj = model.first
