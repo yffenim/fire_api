@@ -31,7 +31,9 @@ class ThirdsController < ApiController
 
   # POST /thirds
   def create
+    title = Third.first.title
     @third = Third.new(third_params)
+    @third.title = title
     if @third.save
       render json: @third, status: :created, location: @third
     else

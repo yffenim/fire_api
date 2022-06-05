@@ -1,5 +1,5 @@
 class AlertsController < ApiController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_alert, only: %i[ show update destroy] 
   # require 'pry-byebug'
 

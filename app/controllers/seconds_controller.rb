@@ -31,8 +31,9 @@ class SecondsController < ApiController
 
   # POST /seconds
   def create
+    title = Second.first.title
     @second = Second.new(second_params)
-
+    @second.title = title
     if @second.save
       render json: @second, status: :created, location: @second
     else
