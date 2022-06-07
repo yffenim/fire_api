@@ -21,26 +21,34 @@ def create_new_user(name, email, uid, second_model, third_model, second_total, t
   )
   new_user.save!
 
-  # THIS IS SYSTEM DEFAULT DATA THAT MUST EXIST AT ALL TIMES
-  # Front end user flow: this is created w/ the two model titles
+  
+  # SYSTEM DEFAULT DATA 
+  # this is created w/ titles post request when users first login
+  # updated_at value must be earlier than other seeds
   system_default_for_alerts = Alert.new(
     level: 5, 
     user_id: new_user.id, 
-    title: "Alertness",
+    title: "Default",
+    # title: "Alertness",
+    updated_at: 10.days.ago
   )
   system_default_for_alerts.save!
 
   system_default_for_seconds = Second.new(
     level: 5, 
     user_id: new_user.id, 
-    title: second_model,
+    title: "Default",
+    # title: second_model,
+    updated_at: 10.days.ago
   )
   system_default_for_seconds.save!
 
   system_default_for_thirds = Third.new(
     level: 5,
     user_id: new_user.id, 
-    title: third_model,
+    # title: third_model,
+    title: "Default",
+    updated_at: 10.days.ago
   )
   system_default_for_thirds.save!
 
@@ -82,12 +90,13 @@ def create_new_user(name, email, uid, second_model, third_model, second_total, t
     third.save!
   end
 
-  p "Created new user #{new_user.name} with #{new_user.alerts.count} x #{Alert.first.title}, #{new_user.seconds.count} x #{Second.first.title} levels and #{new_user.thirds.count} x #{Third.first.title}!"
+  # p "Created new user #{new_user.name} with #{new_user.alerts.count} x #{Alert.first.title}, #{new_user.seconds.count} x #{Second.first.title} levels and #{new_user.thirds.count} x #{Third.first.title}!"
 
 end
 
 # def create_new_user(name, email, uid, second_model, third_model, second_total, third_total)
-create_new_user('Ada', 'ada@ardour.com', 1, 'Appetite', 'mood', 5, 1)
-create_new_user('Hal', 'hal@incandenz.com', 2, 'Training', 'Perform', 0, 0)
+# create_new_user('Ada', 'ada@ardour.com', 1, 'Appetite', 'mood', 5, 1)
+create_new_user('Ada', 'ada@ardour.com', 1, 'Default', 'Default', 0, 0)
+create_new_user('Hal', 'hal@incandenza.com', 2, 'Default', 'Default', 0, 0)
 
 p "Total users: #{User.count}"

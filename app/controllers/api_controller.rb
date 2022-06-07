@@ -7,18 +7,12 @@ class ApiController < ActionController::API
 
   # get the array of user data entries excluding first object 
   # first object is system default used to track titles
-  def get_total(model)
-    total = model.all.count - 1 
-  end
 
   # get average of user data entries
   def get_avg(objects, count)
     levels = []
     objects.each { |obj| levels << obj.level }
     levels = levels.compact
-    # convert back to 1-9 scale bc that's what client sees
-    # levels = levels.map { |level| convert_to_1_to_9(level) }
-    # puts "LEVELS SHOULD BE 1-9: #{levels}"
     avg = levels.inject(0, :+) / count
     avg.round
   end
@@ -36,6 +30,14 @@ class ApiController < ActionController::API
     json = [ info, [] ]
   end
 
+  def format_for_api(model_objects)
+    formatted_arr = model_objects.each_with_index do | a, i |
+      new = convert_to_1_to_9(a[:level])
+      model_objects[i][:level] = new
+    end
+    formatted_arr
+  end
+
   private
     def convert_to_1_to_9(level)
       scale = { 
@@ -51,6 +53,5 @@ class ApiController < ActionController::API
       }
       new_level = scale.key(level)
     end
-
 end
 

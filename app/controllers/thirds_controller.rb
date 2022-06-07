@@ -1,23 +1,21 @@
 class ThirdsController < ApiController
   before_action :set_third, only: [:show, :update, :destroy]
-  require 'pry-byebug'
+  before_action :authenticate_user!
+  # require 'pry-byebug'
 
   # GET /thirds
   def index
-    thirds_count = Third.all.count
-    thirds_total = get_total(Third) 
-    user_thirds = []
-    default_id = 3
-    default_third = Third.find(default_id)
+    thirds = current_user.thirds
+    default = thirds.first
+    thirds_total = thirds.count - 1 # will this throw an aerror
 
     if thirds_total > 0
-      Third.all.order("updated_at DESC").each do | entry |
-        user_thirds << entry if entry.id != default_id
-      end
+      ordered  = thirds.sort_by { |h| h["updated_at"] }.reverse!
+      user_thirds = ordered[0...thirds_total]
+      user_thirds = format_for_api(user_thirds)
 
       thirds_avg = get_avg(user_thirds, thirds_total)
-      model_info = format_info(thirds_total, thirds_avg, default_third)
-
+      model_info = format_info(thirds_total, thirds_avg, default)
       render json: [model_info, user_thirds]
     else
       render json: no_user_data
@@ -31,9 +29,9 @@ class ThirdsController < ApiController
 
   # POST /thirds
   def create
-    title = Third.first.title
+    # title = Third.first.title
     @third = Third.new(third_params)
-    @third.title = title
+    # @third.title = title
     if @third.save
       render json: @third, status: :created, location: @third
     else

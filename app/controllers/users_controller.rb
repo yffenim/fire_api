@@ -4,23 +4,32 @@ class UsersController < ApiController
   
   # GET /users
   def index
+    # user = current_user
+    # user = User.second
     user = User.first
-    # alert_id = user.alerts.first.id
-    second_id = user.seconds.first.id
-    seconds_title = user.seconds.first.title
-    third_id = user.thirds.first.id
-    thirds_title = user.thirds.first.title
-    user.last_sign_in_at != nil ? signed_in = true : signed_in = false 
-
+    # puts "TOTAL COUNT FOR USER FIRST: #{user.seconds.count}***********"
+    if user.seconds.count > 0       
+      # puts "data exists**************"
+      seconds_title = user.seconds.first.title
+      seconds_id = user.seconds.first.id
+      thirds_title = user.thirds.first.title
+      thirds_id = user.thirds.first.id
+      user.last_sign_in_at != nil ? signed_in = true : signed_in = false 
+    else
+      # puts "data does not exist*************"
+      seconds_title = "Please add a title"
+      seconds_id = 0
+      thirds_title = "Please add a title"
+      thirds_id = 0
+      signed_in = false
+    end
     user_info = { 
       "has_signed_in": signed_in,
-      # "alertId": alert_id,
-      # "secondId": second_id,
       "secondsTitle": seconds_title,
-      # "thirdId": third_id,
-      "thirdsTitle": thirds_title
+      "thirdsTitle": thirds_title,
+      "secondsId": seconds_id,
+      "thirdsId": thirds_id
     }
-
     render json: [ user, user_info ]
   end
 
@@ -61,7 +70,7 @@ class UsersController < ApiController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :fire_dept, :fire_station)
+      params.require(:user).permit(:name, :email, :password)
     end
 
     def avg_and_count(model_objects, title)

@@ -1,27 +1,24 @@
 class SecondsController < ApiController
   before_action :set_second, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /seconds
   def index
-    seconds_count = Second.all.count
-    seconds_total = get_total(Second)
-    user_seconds = []
-    default_id = 2
-    default_second = Second.find(default_id)
-    
+    seconds = current_user.seconds
+    default = seconds.first
+    seconds_total = seconds.count - 1 # will this throw an aerror
+
     if seconds_total > 0
-      Second.all.order("updated_at DESC").each do |entry| 
-        user_seconds << entry if entry.id != default_id
-      end
-      
+      ordered  = seconds.sort_by { |h| h["updated_at"] }.reverse!
+      user_seconds = ordered[0...seconds_total]
+      user_seconds = format_for_api(user_seconds)
+
       seconds_avg = get_avg(user_seconds, seconds_total)
-      model_info = format_info(seconds_total, seconds_avg, default_second)
-    
+      model_info = format_info(seconds_total, seconds_avg, default)
       render json: [model_info, user_seconds]
-    else 
+    else
       render json: no_user_data
     end
-
   end
 
   # GET /seconds/1
@@ -31,9 +28,9 @@ class SecondsController < ApiController
 
   # POST /seconds
   def create
-    title = Second.first.title
+    # title = Second.first.title
     @second = Second.new(second_params)
-    @second.title = title
+    # @second.title = title
     if @second.save
       render json: @second, status: :created, location: @second
     else
