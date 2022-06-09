@@ -1,11 +1,10 @@
 class UsersController < ApiController
-  # before_action :authenticate_user!, only: [:index]
   before_action :set_user, only: [:show, :update, :destroy]
   
   # GET /users
   def index
     user = current_user
-    # user = User.second
+    # user = User.secos
     # user = User.first
     # user = User.find(17)
 
@@ -34,10 +33,6 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
-    # @alerts = Alert.all
-    # @seconds = Second.all
-    # @thirds = Third.all
-
     @alerts = @user.alerts
     @seconds = @user.seconds[1...@user.seconds.count]
     @thirds = @user.thirds[1...@user.thirds.count]
