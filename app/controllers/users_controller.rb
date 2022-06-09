@@ -1,22 +1,21 @@
 class UsersController < ApiController
-  # before_action :authenticate_user!
+  # before_action :authenticate_user!, only: [:index]
   before_action :set_user, only: [:show, :update, :destroy]
   
   # GET /users
   def index
-    # user = current_user
+    user = current_user
     # user = User.second
-    user = User.first
-    # puts "TOTAL COUNT FOR USER FIRST: #{user.seconds.count}***********"
-    if user.seconds.count > 0       
-      # puts "data exists**************"
+    # user = User.first
+    # user = User.find(17)
+
+    if user.seconds.count && user.thirds.count > 0       
       seconds_title = user.seconds.first.title
       seconds_id = user.seconds.first.id
       thirds_title = user.thirds.first.title
       thirds_id = user.thirds.first.id
-      user.last_sign_in_at != nil ? signed_in = true : signed_in = false 
+      signed_in = true 
     else
-      # puts "data does not exist*************"
       seconds_title = "Please add a title"
       seconds_id = 0
       thirds_title = "Please add a title"
@@ -35,6 +34,35 @@ class UsersController < ApiController
 
   # GET /users/1
   def show
+    # @alerts = Alert.all
+    # @seconds = Second.all
+    # @thirds = Third.all
+
+    @alerts = @user.alerts
+    @seconds = @user.seconds[1...@user.seconds.count]
+    @thirds = @user.thirds[1...@user.thirds.count]
+
+    alerts_title = @alerts.first
+    seconds_title = @seconds.first.title
+    thirds_title = @thirds.first.title
+
+    @csv = CsvShaper.encode do |csv|
+      csv.headers :title, :level, :updated_at
+
+      csv.rows @alerts do |csv, obj|
+        csv.cells :title, :level,  :updated_at
+      end
+      
+      csv.rows @seconds do |csv, obj|
+        csv.cells :title, :level,  :updated_at
+      end
+
+      csv.rows @thirds do |csv, obj|
+        csv.cells :title, :level, :updated_at
+      end
+    end
+
+    render json: [ @csv ]
   end
 
   # POST /users

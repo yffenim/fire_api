@@ -1,22 +1,21 @@
 class AlertsController < ApiController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_alert, only: %i[ show update destroy] 
-  # require 'pry-byebug'
+  require 'pry-byebug'
 
   # GET /alerts
   def index
-    # the first alert is a system default and does not belong to the user
+    # setting first alert to default for consistent formatting
+    # but unlike seconds, no default system object needed for alerts
     # this is true for all models
-    alerts = User.first.alerts
-    # alerts = current_user.alerts
+    # alerts = User.first.alerts
+    alerts = current_user.alerts
     default = alerts.first
-    alerts_total = alerts.count - 1 # will this throw an aerror
-
+    alerts_total = alerts.count
     if alerts_total > 0
       ordered  = alerts.sort_by { |h| h["updated_at"] }.reverse!
-      user_alerts = ordered[0...alerts_total]
+      user_alerts = ordered
       user_alerts = format_for_api(user_alerts)
-
       alerts_avg = get_avg(user_alerts, alerts_total)
       model_info = format_info(alerts_total, alerts_avg, default)
 
@@ -36,7 +35,6 @@ class AlertsController < ApiController
   # POST /alerts
   def create
     @alert = Alert.new(alert_params)
-    @alert.title = "alertness"
     if @alert.save
       render json: @alert, status: :created, location: @alert
     else

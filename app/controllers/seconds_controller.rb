@@ -6,7 +6,7 @@ class SecondsController < ApiController
   def index
     seconds = current_user.seconds
     default = seconds.first
-    seconds_total = seconds.count - 1 # will this throw an aerror
+    seconds_total = seconds.count - 1     
 
     if seconds_total > 0
       ordered  = seconds.sort_by { |h| h["updated_at"] }.reverse!

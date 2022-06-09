@@ -1,13 +1,12 @@
 class ThirdsController < ApiController
   before_action :set_third, only: [:show, :update, :destroy]
   before_action :authenticate_user!
-  # require 'pry-byebug'
 
   # GET /thirds
   def index
     thirds = current_user.thirds
     default = thirds.first
-    thirds_total = thirds.count - 1 # will this throw an aerror
+    thirds_total = thirds.count - 1 
 
     if thirds_total > 0
       ordered  = thirds.sort_by { |h| h["updated_at"] }.reverse!

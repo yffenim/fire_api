@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root is needed for heroku
   root 'welcome#index'
-  get '/export', to: 'welcome#export_csv' # add /:id later
+  get '/export_csv', to: 'welcome#export_csv' # add /:id later
 
 end
