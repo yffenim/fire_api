@@ -19,15 +19,15 @@ class ApiController < ActionController::API
 
   # formatting for user stats on model api call
   def format_info(total, avg, default)
-    info = { "count": total, "avg": avg, "first_obj": default }
+    { "count": total, "avg": avg, "first_obj": default }
   end
 
   # default no user data json object 
   def no_user_data(model)
-    msg = "data object does not exist"
+    "data object does not exist"
     first_obj = model.first
     info = { "count": 0, "avg": 0, "first_obj": first_obj }
-    json = [ info, [] ]
+    [ info, [] ]
   end
 
   def format_for_api(model_objects)
@@ -51,7 +51,7 @@ class ApiController < ActionController::API
         8.0 => 4.5,
         9.0 => 5.0
       }
-      new_level = scale.key(level)
+      scale.key(level)
     end
 end
 
