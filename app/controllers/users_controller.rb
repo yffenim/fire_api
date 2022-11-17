@@ -37,9 +37,9 @@ class UsersController < ApiController
     @seconds = @user.seconds[1...@user.seconds.count]
     @thirds = @user.thirds[1...@user.thirds.count]
 
-    alerts_title = @alerts.first
-    seconds_title = @seconds.first.title
-    thirds_title = @thirds.first.title
+    @alerts.first
+    @seconds.first.title
+    @thirds.first.title
 
     @csv = CsvShaper.encode do |csv|
       csv.headers :title, :level, :updated_at

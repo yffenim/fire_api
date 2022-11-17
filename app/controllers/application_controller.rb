@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
   
   def get_total(model)
-    total = model.all.count - 1 
+    model.all.count - 1 
   end
 
 end
