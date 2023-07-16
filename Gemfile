@@ -5,7 +5,7 @@ ruby '3.0.3'
 
 # authentication & admin
 gem 'devise'
-gem 'activeadmin'
+gem 'activeadmin', '>= 3.0.0'
 gem 'sass-rails'
 gem 'devise_token_auth'
 gem 'omniauth', '~> 2.1'
