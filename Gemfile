@@ -7,7 +7,7 @@ ruby '3.0.3'
 gem 'devise'
 gem 'activeadmin'
 gem 'sass-rails'
-gem 'devise_token_auth'
+gem 'devise_token_auth', '>= 1.2.3'
 gem 'omniauth', '~> 2.1'
 gem 'bcrypt'
 # disable CORS 
