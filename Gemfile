@@ -11,7 +11,7 @@ gem 'devise_token_auth'
 gem 'omniauth', '~> 2.1'
 gem 'bcrypt'
 # disable CORS 
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', '>= 3.0.0', :require => 'rack/cors'
 # code formatter based on RAILS best pratices
 gem 'robocop', '~> 0.1.1'
 # loads env variables from .env
