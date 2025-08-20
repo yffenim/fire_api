@@ -5,9 +5,9 @@ ruby '3.0.3'
 
 # authentication & admin
 gem 'devise'
-gem 'activeadmin'
+gem 'activeadmin', '>= 2.11.2'
 gem 'sass-rails'
-gem 'devise_token_auth'
+gem 'devise_token_auth', '>= 1.2.3'
 gem 'omniauth', '~> 2.1'
 gem 'bcrypt'
 # disable CORS 
@@ -19,7 +19,7 @@ gem 'dotenv', '~> 2.7', '>= 2.7.6'
 # generates csv
 gem 'csv_shaper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 7.1.5', '>= 7.1.5.2'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
