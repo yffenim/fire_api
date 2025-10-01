@@ -4,14 +4,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.3'
 
 # authentication & admin
-gem 'devise'
-gem 'activeadmin'
+gem 'devise', '>= 4.9.0'
+gem 'activeadmin', '>= 2.11.2'
 gem 'sass-rails'
-gem 'devise_token_auth'
-gem 'omniauth', '~> 2.1'
+gem 'devise_token_auth', '>= 1.2.1'
+gem 'omniauth', '~> 2.1', '>= 2.1.1'
 gem 'bcrypt'
 # disable CORS 
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', '>= 2.0.0', :require => 'rack/cors'
 # code formatter based on RAILS best pratices
 gem 'robocop', '~> 0.1.1'
 # loads env variables from .env
@@ -19,7 +19,7 @@ gem 'dotenv', '~> 2.7', '>= 2.7.6'
 # generates csv
 gem 'csv_shaper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 6.1.5', '>= 6.1.5.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -44,7 +44,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem "pry"
   gem 'pry-byebug'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 5.1.2'
 end
 
 group :development do
